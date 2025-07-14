@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { SalasComponent } from './salas.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-// Define la interfaz para los datos mockeados, debe coincidir con la estructura de tu JSON
+
 interface MockApiItem {
   id: number;
   titulo: string;

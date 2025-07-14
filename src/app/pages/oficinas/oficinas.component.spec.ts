@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser'; // Corregido: de '=>' a 'from'
 import { OficinasComponent } from './oficinas.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-// Define la interfaz para los datos mockeados, debe coincidir con la estructura de tu JSON
+
 interface MockApiItem {
   id: number;
   titulo: string;
@@ -11,15 +11,15 @@ interface MockApiItem {
   precio: string;
   imagen: string;
   alt: string;
-  tipo: string; // Crucial para el filtrado
+  tipo: string; 
 }
 
 describe('OficinasComponent', () => {
   let component: OficinasComponent;
   let fixture: ComponentFixture<OficinasComponent>;
-  let httpTestingController: HttpTestingController; // Para mockear las peticiones HTTP
+  let httpTestingController: HttpTestingController; 
 
-  // Datos mockeados que simulan la respuesta completa de la API
+  
   const mockApiData: MockApiItem[] = [
     {
       id: 1,
@@ -50,36 +50,34 @@ describe('OficinasComponent', () => {
     }
   ];
 
-  // Datos esperados en el componente después de que se aplique el filtro 'tipo: oficina'
+  
   const expectedOficinasAfterFilter = mockApiData.filter(item => item.tipo === 'oficina');
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        OficinasComponent, // Importa el componente standalone
-        HttpClientTestingModule // Importa el módulo para mockear HttpClient
+        OficinasComponent, 
+        HttpClientTestingModule 
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(OficinasComponent);
     component = fixture.componentInstance;
-    httpTestingController = TestBed.inject(HttpTestingController); // Inyecta el controlador de test
+    httpTestingController = TestBed.inject(HttpTestingController); 
   });
 
   afterEach(() => {
-    // Verifica que no haya peticiones HTTP pendientes después de cada prueba
     httpTestingController.verify();
   });
 
-  // Prueba 1: Verifica que el componente se cree correctamente
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // Nueva Prueba 3: Verifica que al presionar el botón "Reservar Ahora" se muestra una alerta
-  // Esta prueba no considera la carga de datos del JSON, sino que simula el estado del componente
+  
   it('should display an alert when "Reservar Ahora" button is clicked (without JSON loading)', () => {
-    // Simula directamente el array de oficinas en el componente
+    
     component.oficinas = [
       {
         id: 10,
@@ -91,17 +89,17 @@ describe('OficinasComponent', () => {
         alt : 'Oficina'
       }
     ];
-    fixture.detectChanges(); // Actualiza el DOM para que el botón se renderice
+    fixture.detectChanges(); 
 
-    spyOn(window, 'alert'); // Espía el método 'window.alert'
+    spyOn(window, 'alert'); 
 
-    // Busca el botón de reserva en el DOM
+    
     const reservaButton = fixture.debugElement.query(By.css('.reserva-btn'));
     expect(reservaButton).toBeTruthy('El botón de reserva debería existir en el DOM.');
 
-    reservaButton.triggerEventHandler('click', null); // Simula un clic en el botón
+    reservaButton.triggerEventHandler('click', null); 
 
-    // Verifica que window.alert haya sido llamado con el mensaje esperado
+    
     expect(window.alert).toHaveBeenCalledWith(
       `Has seleccionado Oficina Test. Precio: $99 por Semana`
     );
