@@ -1,0 +1,76 @@
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4">Registro de Usuario</h2>
+    <form [formGroup]="accesoForm" (ngSubmit)="enviarFormulario()" novalidate>
+  
+      
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <div *ngIf="accesoForm.get('nombre')?.invalid && accesoForm.get('nombre')?.touched" class="text-danger">
+          El nombre es obligatorio.
+        </div>
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" formControlName="apellido">
+        <div *ngIf="accesoForm.get('apellido')?.invalid && accesoForm.get('apellido')?.touched" class="text-danger">
+          El apellido es obligatorio.
+        </div>
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="correo" formControlName="correo">
+        <div *ngIf="accesoForm.get('correo')?.invalid && accesoForm.get('correo')?.touched" class="text-danger">
+          Ingrese un correo válido.
+        </div>
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">
+        <div *ngIf="accesoForm.get('fechaNacimiento')?.errors?.['edadInvalida']" class="text-danger">
+          Debe tener al menos 13 años.
+        </div>
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="direccionDespacho" class="form-label">Dirección de despacho (opcional)</label>
+        <input type="text" class="form-control" id="direccionDespacho" formControlName="direccionDespacho">
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div *ngIf="accesoForm.get('password')?.errors?.['pattern'] && accesoForm.get('password')?.touched" class="text-danger">
+          Debe contener al menos una mayúscula y un número.
+        </div>
+        <div *ngIf="(accesoForm.get('password')?.errors?.['minlength'] || accesoForm.get('password')?.errors?.['maxlength']) && accesoForm.get('password')?.touched" class="text-danger">
+          La contraseña debe tener entre 6 y 18 caracteres.
+        </div>
+      </div>
+  
+      
+      <div class="mb-3">
+        <label for="repetirPassword" class="form-label">Repetir contraseña</label>
+        <input type="password" class="form-control" id="repetirPassword" formControlName="repetirPassword">
+        <div *ngIf="accesoForm.errors?.['passwordsNoCoinciden'] && accesoForm.get('repetirPassword')?.touched" class="text-danger">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+  
+      
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+  
+    </form>
+  </div>
+  
