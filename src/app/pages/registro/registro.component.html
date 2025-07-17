@@ -1,0 +1,170 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Registro de Usuario</h2>
+          
+          <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" novalidate>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                  <div *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched" 
+                       class="text-danger">
+                    <small *ngIf="registroForm.get('nombre')?.errors?.['required']">
+                      El nombre es obligatorio.
+                    </small>
+                    <small *ngIf="registroForm.get('nombre')?.errors?.['minlength']">
+                      El nombre debe tener al menos 2 caracteres.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="apellido" class="form-label">Apellido</label>
+                  <input type="text" class="form-control" id="apellido" formControlName="apellido">
+                  <div *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched" 
+                       class="text-danger">
+                    <small *ngIf="registroForm.get('apellido')?.errors?.['required']">
+                      El apellido es obligatorio.
+                    </small>
+                    <small *ngIf="registroForm.get('apellido')?.errors?.['minlength']">
+                      El apellido debe tener al menos 2 caracteres.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Nombre de usuario</label>
+                  <input type="text" class="form-control" id="username" formControlName="username">
+                  <div *ngIf="registroForm.get('username')?.invalid && registroForm.get('username')?.touched" 
+                       class="text-danger">
+                    <small *ngIf="registroForm.get('username')?.errors?.['required']">
+                      El nombre de usuario es obligatorio.
+                    </small>
+                    <small *ngIf="registroForm.get('username')?.errors?.['minlength']">
+                      El nombre de usuario debe tener al menos 3 caracteres.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="correo" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="correo" formControlName="correo">
+                  <div *ngIf="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched" 
+                       class="text-danger">
+                    <small *ngIf="registroForm.get('correo')?.errors?.['required']">
+                      El correo es obligatorio.
+                    </small>
+                    <small *ngIf="registroForm.get('correo')?.errors?.['email']">
+                      Ingrese un correo válido.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                  <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">
+                  <div *ngIf="registroForm.get('fechaNacimiento')?.errors?.['edadInvalida']" 
+                       class="text-danger">
+                    <small>Debe tener al menos 13 años.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="perfil" class="form-label">Tipo de perfil</label>
+                  <select class="form-select" id="perfil" formControlName="perfil">
+                    <option value="usuario">Usuario</option>
+                    <option value="administrador">Administrador</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="direccionDespacho" class="form-label">Dirección de despacho (opcional)</label>
+              <input type="text" class="form-control" id="direccionDespacho" formControlName="direccionDespacho">
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                  <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched" 
+                       class="text-danger">
+                    <small *ngIf="registroForm.get('password')?.errors?.['required']">
+                      La contraseña es obligatoria.
+                    </small>
+                    <small *ngIf="registroForm.get('password')?.errors?.['pattern']">
+                      Debe contener al menos una mayúscula y un número.
+                    </small>
+                    <small *ngIf="registroForm.get('password')?.errors?.['minlength'] || registroForm.get('password')?.errors?.['maxlength']">
+                      La contraseña debe tener entre 6 y 18 caracteres.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="repetirPassword" class="form-label">Repetir contraseña</label>
+                  <input type="password" class="form-control" id="repetirPassword" formControlName="repetirPassword">
+                  <div *ngIf="registroForm.errors?.['passwordsNoCoinciden'] && registroForm.get('repetirPassword')?.touched" 
+                       class="text-danger">
+                    <small>Las contraseñas no coinciden.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <div *ngIf="successMessage" class="alert alert-success" role="alert">
+              {{ successMessage }}
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="button" class="btn btn-secondary me-md-2" (click)="limpiarFormulario()">
+                Limpiar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="registroForm.invalid">
+                Registrar
+              </button>
+            </div>
+
+          </form>
+
+          <hr class="my-4">
+          
+          <div class="text-center">
+            <p class="mb-2">¿Ya tienes cuenta?</p>
+            <button type="button" class="btn btn-outline-primary" (click)="irALogin()">
+              Iniciar Sesión
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

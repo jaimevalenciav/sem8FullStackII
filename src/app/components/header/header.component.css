@@ -1,0 +1,31 @@
+.user-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-banner.bg-success {
+  background-color: #28a745 !important;
+}
+
+.user-banner.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.user-banner .btn-outline-light {
+  border-color: rgba(255,255,255,0.7);
+}
+
+.user-banner .btn-outline-light:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.9);
+}
+
+/* Agregar padding al body cuando la cinta está visible */
+body.user-logged-in {
+  padding-top: 60px;
+}
